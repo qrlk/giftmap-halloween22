@@ -23,7 +23,7 @@ function main()
 
   -- вырежи тут, если хочешь отключить проверку обновлений
   update("http://qrlk.me/dev/moonloader/giftmap-easter22/stats.php", '[' .. string.upper(thisScript().name) .. ']: ', "http://vk.com/qrlk.mods", "giftmapeaster22giftchangelog")
-  openchangelog("giftmapeaster22giftchangelog", "https://github.com/qrlk/giftmap-easter2022/commits/main")
+  openchangelog("giftmapeaster22giftchangelog", "https://github.com/qrlk/giftmap-easter22/commits/main")
   -- вырежи тут, если хочешь отключить проверку обновлений
 
 
@@ -44,7 +44,7 @@ function main()
         map, checkpoints = {}, {}
       end
     else
-      sampShowDialog(5557, "\t" .. chatTag .. " by {2f72f7}Serhiy_Rubin{ffffff}, {348cb2}qrlk", "{FF5F5F}Активация{ffffff}:\nВведите {2f72f7}/giftmap-easter22{ffffff}, чтобы включить/выключить скрипт.\n\n{FF5F5F}Event{ffffff}:\nНа карте есть точки, где спавнятся яйца.\Яйца дают какие-то монетки, их можно менять на призы: аксессуары и мелочь всякую.\nСейчас скрипт знает о " .. count .. " точках спавна.\nКогда вы заметите яйцо, оно добавится в вашу локальную базу.\n\n{FF5F5F}Как это работает?{ffffff}\nНа радаре появятся метки точек спавна подарков.\nБольшая точка означает самую ближайшую точку.\nС помощью чекпоинтов вы сможете сориентироваться.\nВыйдя в меню и открыв карту, вы сможете увидеть все яйца.\nЕсли на точке ничего нет/не подбирается, значит, что яйцо подобрали и надо ждать пока оно респавнется.\n\n{FF5F5F}Обозначения:{ffffff}\n* Маленькая белая метка - вне зоны прорисовки.\n* Большая красная метка - точка занята игроками.\n* Большая голубая метка - на точке есть подарок.\n\n{FF5F5F}Ссылки:{ffffff}\n* https://github.com/qrlk/giftmap-easter2022\n* https://vk.com/rubin.mods", "OK")
+      sampShowDialog(5557, "\t" .. chatTag .. " by {2f72f7}Serhiy_Rubin{ffffff}, {348cb2}qrlk", "{FF5F5F}Активация{ffffff}:\nВведите {2f72f7}/giftmap-easter22{ffffff}, чтобы включить/выключить скрипт.\n\n{FF5F5F}Event{ffffff}:\nНа карте есть точки, где спавнятся яйца.\nЯйца дают какие-то монетки, их можно менять на призы: аксессуары и мелочь всякую.\nСейчас скрипт знает о " .. count .. " точках спавна.\nКогда вы заметите яйцо, оно добавится в вашу локальную базу.\n\n{FF5F5F}Как это работает?{ffffff}\nНа радаре появятся метки точек спавна подарков.\nБольшая точка означает самую ближайшую точку.\nС помощью чекпоинтов вы сможете сориентироваться.\nВыйдя в меню и открыв карту, вы сможете увидеть все яйца.\nЕсли на точке ничего нет/не подбирается, значит, что яйцо подобрали и надо ждать пока оно респавнется.\n\n{FF5F5F}Обозначения:{ffffff}\n* Маленькая белая метка - вне зоны прорисовки.\n* Большая красная метка - точка занята игроками.\n* Большая голубая метка - на точке есть подарок.\n\n{FF5F5F}Ссылки:{ffffff}\n* https://github.com/qrlk/giftmap-easter22\n* https://vk.com/rubin.mods", "OK")
       for key, coord in pairs(map_ico) do
         if map[key] == nil then
           map[key] = addBlipForCoord(coord.x, coord.y, coord.z)
@@ -57,7 +57,7 @@ function main()
   end
 
   sampRegisterChatCommand(
-    "giftmap-easter2022",
+    "giftmap-easter22",
     switch
   )
 
@@ -107,7 +107,7 @@ function main()
                 end
               end
             else
-              changeBlipScale(map[key], 1)
+              changeBlipScale(map[key], 2)
               changeBlipColour(map[key], 0xFFFFFFFF)
             end
             if distance < dist then
