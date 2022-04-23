@@ -14,7 +14,7 @@ c = connection.cursor()
 c.execute('''SELECT * FROM log WHERE typ == 'gift' GROUP BY gift_string;''')
 a = {}
 for k in c.fetchall():
-    a[int(float(k["gift_string"]))] = {"x": k["x"], "y": k["y"], "z": k["z"]}
+    a['x'+str(int(float(k["gift_string"])))] = {"x": k["x"], "y": k["y"], "z": k["z"]}
 print(json.dumps(a))
 print("")
 print(len(a))
