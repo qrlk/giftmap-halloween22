@@ -81,7 +81,7 @@ function main()
           local x, y, z = getCharCoordinates(PLAYER_PED)
           local distance = getDistanceBetweenCoords2d(coord.x, coord.y, x, y)
           if not isPauseMenuActive() then
-            if distance < 1000 then
+            if distance < 400 then
               if checkpoints[key] == nil then
                 checkpoints[key] = createCheckpoint(1, coord.x, coord.y, coord.z, coord.x, coord.y, coord.z, 5)
               end
