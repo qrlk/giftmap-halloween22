@@ -31,10 +31,12 @@ function main()
 
   function switch()
     wh = not wh
+
     local count = 0
     for k, v in pairs(map_ico) do
       count = count + 1
     end
+
     if not wh then
       if map_ico ~= nil then
         for id, data in pairs(map_ico) do
@@ -45,12 +47,6 @@ function main()
       end
     else
       sampShowDialog(5557, "\t" .. chatTag .. " by {2f72f7}Serhiy_Rubin{ffffff}, {348cb2}qrlk", "{FF5F5F}Активация{ffffff}:\nВведите {2f72f7}/giftmap-easter22{ffffff}, чтобы включить/выключить скрипт.\n\n{FF5F5F}Event{ffffff}:\nНа карте есть точки, где спавнятся яйца.\nЯйца дают какие-то монетки, их можно менять на призы: аксессуары и мелочь всякую.\nСейчас скрипт знает о " .. count .. " точках спавна.\nКогда вы заметите яйцо, оно добавится в вашу локальную базу.\n\n{FF5F5F}Как это работает?{ffffff}\nНа радаре появятся метки точек спавна подарков.\nБольшая точка означает самую ближайшую точку.\nС помощью чекпоинтов вы сможете сориентироваться.\nВыйдя в меню и открыв карту, вы сможете увидеть все яйца.\nЕсли на точке ничего нет/не подбирается, значит, что яйцо подобрали и надо ждать пока оно респавнется.\n\n{FF5F5F}Обозначения:{ffffff}\n* Маленькая белая метка - вне зоны прорисовки.\n* Большая красная метка - точка занята игроками.\n* Большая голубая метка - на точке есть подарок.\n\n{FF5F5F}Ссылки:{ffffff}\n* https://github.com/qrlk/giftmap-easter22\n* https://vk.com/rubin.mods", "OK")
-      for key, coord in pairs(map_ico) do
-        if map[key] == nil then
-          map[key] = addBlipForCoord(coord.x, coord.y, coord.z)
-          changeBlipScale(map[key], 1)
-        end
-      end
     end
 
     printStringNow((wh and "ON, DB: " .. count or "OFF, DB: " .. count), 1000)
@@ -502,25 +498,18 @@ function main()
   inicfg.save(map_ico, "giftmap-easter22")
 
   sampAddChatMessage((chatTag .. " by {2f72f7}Serhiy_Rubin{ffffff} & {348cb2}qrlk{ffffff} successfully loaded!"), -1)
-  local bliz = 0
   while true do
     wait(500)
     if wh then
       local dist = 99999
       for key, coord in pairs(map_ico) do
-        if map[key] ~= nil then
-          local x, y, z = getCharCoordinates(PLAYER_PED)
-          local distance = getDistanceBetweenCoords2d(coord.x, coord.y, x, y)
-          if not isPauseMenuActive() then
-            if distance < 400 then
-              if checkpoints[key] == nil then
-                checkpoints[key] = createCheckpoint(1, coord.x, coord.y, coord.z, coord.x, coord.y, coord.z, 5)
-              end
-            else
-              if checkpoints[key] ~= nil then
-                deleteCheckpoint(checkpoints[key])
-                checkpoints[key] = nil
-              end
+        local x, y, z = getCharCoordinates(PLAYER_PED)
+        local distance = getDistanceBetweenCoords2d(coord.x, coord.y, x, y)
+        if not isPauseMenuActive() then
+          if distance < 1200 then
+            if map[key] == nil then
+              map[key] = addBlipForCoord(coord.x, coord.y, coord.z)
+              checkpoints[key] = createCheckpoint(1, coord.x, coord.y, coord.z, coord.x, coord.y, coord.z, 5)
             end
             if distance < 200 then
               changeBlipScale(map[key], 5)
@@ -531,7 +520,7 @@ function main()
                   changeBlipColour(map[key], 0xFF0000FF)
                 end
               else
-                if findAllRandomObjectsInSphere(coord.x, coord.y, coord.z, 0.2, false) then
+                if isAnyPickupAtCoords(coord.x, coord.y, coord.z) then
                   changeBlipColour(map[key], 0x00FFFFFF)
                 else
                   changeBlipColour(map[key], 0x00FF00FF)
@@ -541,20 +530,29 @@ function main()
               changeBlipScale(map[key], 2)
               changeBlipColour(map[key], 0xFFFFFFFF)
             end
-            if distance < dist then
-              bliz = key
-              dist = distance
-            end
           else
-            if map[key] == nil then
-              map[key] = addBlipForCoord(coord.x, coord.y, coord.z)
-              checkpoints[key] = createCheckpoint(1, coord.x, coord.y, coord.z, coord.x, coord.y, coord.z, 5)
-              changeBlipScale(map[key], 2)
-              changeBlipColour(map[key], 0xFF2138eb)
+            if map[key] ~= nil then
+              removeBlip(map[key])
+              map[key] = nil
+
+              deleteCheckpoint(checkpoints[key])
+              checkpoints[key] = nil
             end
+          end
+          if distance < dist then
+            bliz = key
+            dist = distance
+          end
+        else
+          if map[key] == nil then
+            map[key] = addBlipForCoord(coord.x, coord.y, coord.z)
+            checkpoints[key] = createCheckpoint(1, coord.x, coord.y, coord.z, coord.x, coord.y, coord.z, 5)
+            changeBlipScale(map[key], 2)
+            changeBlipColour(map[key], 0xFF2138eb)
           end
         end
       end
+
       changeBlipScale(map[bliz], 8)
     end
   end
