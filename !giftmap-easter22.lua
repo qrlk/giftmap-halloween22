@@ -1059,7 +1059,7 @@ function main()
       z = 10.820300102234
     }
   }, "giftmap-easter22")
-  print(require'inspect'(map_ico))
+
 
   inicfg.save(map_ico, "giftmap-easter22")
 
