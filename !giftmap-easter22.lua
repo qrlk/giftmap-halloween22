@@ -1,7 +1,7 @@
 require 'lib.moonloader'
 
 script_name("/giftmap-easter22")
-script_version("24.04.2022")
+script_version("24.04.2022-200")
 script_author("Serhiy_Rubin", "qrlk")
 script_properties("work-in-pause")
 script_url("https://github.com/qrlk/giftmap-easter22")
@@ -1059,7 +1059,6 @@ function main()
       z = 10.820300102234
     }
   }, "giftmap-easter22")
-
 
   inicfg.save(map_ico, "giftmap-easter22")
 
