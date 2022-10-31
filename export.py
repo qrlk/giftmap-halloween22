@@ -7,7 +7,7 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-connection = sqlite3.connect("giftmap-halloween2022.db")
+connection = sqlite3.connect("giftmap-halloween22.db")
 connection.row_factory = dict_factory
 c = connection.cursor()
 
