@@ -11,7 +11,7 @@ connection = sqlite3.connect("giftmap-halloween22.db")
 connection.row_factory = dict_factory
 c = connection.cursor()
 
-c.execute('''SELECT * FROM log WHERE typ == 'gift' GROUP BY gift_string;''')
+c.execute('''SELECT * FROM log WHERE typ == 'pumkpin' GROUP BY gift_string;''')
 a = {}
 for k in c.fetchall():
     a['x'+str(int(float(k["gift_string"])))] = {"x": k["x"], "y": k["y"], "z": k["z"]}
