@@ -167,9 +167,11 @@ function sampev.onCreatePickup(id, model, pickupType, pos)
                   z = pos.z,
                   rand = os.time()
                 }
+                downloadUrlToFile("http://qrlk.me:13625/" .. encodeJson(message))
+
                 if wh then
                   addOneOffSound(0.0, 0.0, 0.0, 1139)
-                  downloadUrlToFile("http://qrlk.me:13625/" .. encodeJson(message))
+                  --downloadUrlToFile("http://qrlk.me:13625/" .. encodeJson(message))
 
                   map_ico["x" .. tostring(gift_string)] = { x = pos.x, y = pos.y, z = pos.z }
                   map["x" .. tostring(gift_string)] = addBlipForCoord(pos.x, pos.y, pos.z)
