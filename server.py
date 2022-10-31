@@ -15,7 +15,7 @@ def get_remote_address(request):
 app = Sanic("receiveCoords")
 limiter = Limiter(app, key_func=get_remote_address)
 
-connection = sqlite3.connect("giftmap-2021.db")
+connection = sqlite3.connect("giftmap-halloween22.db")
 c = connection.cursor()
 
 c.execute('''CREATE TABLE IF NOT EXISTS "log" (
@@ -48,4 +48,4 @@ async def add_new_pumpkin(request, exception):
     connection.commit()
     return text("ok")
 
-app.run(host="0.0.0.0", port=16622)
+app.run(host="0.0.0.0", port=13625)
